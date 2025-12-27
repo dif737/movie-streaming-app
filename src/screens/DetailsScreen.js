@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import * as Linking from 'expo-linking';
 
 export default function DetailsScreen({ route }) {
@@ -10,26 +17,48 @@ export default function DetailsScreen({ route }) {
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ paddingBottom: 30 }}
+      showsVerticalScrollIndicator={false}
+    >
       <Image
         style={styles.image}
         source={{ uri: `https://image.tmdb.org/t/p/w500${movie.poster_path}` }}
       />
+
       <Text style={styles.title}>{movie.title}</Text>
+
       <Text style={styles.overview}>{movie.overview}</Text>
 
       <TouchableOpacity style={styles.button} onPress={openSite}>
         <Text style={styles.buttonText}>🎬 Watch this movie</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#020617', padding: 20 },
-  image: { height: 350, borderRadius: 16 },
-  title: { color: '#fff', fontSize: 24, fontWeight: '700', marginTop: 15 },
-  overview: { color: '#cbd5f5', marginTop: 10, lineHeight: 22 },
+  container: {
+    flex: 1,
+    backgroundColor: '#020617',
+    padding: 20,
+  },
+  image: {
+    height: 350,
+    borderRadius: 16,
+  },
+  title: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: '700',
+    marginTop: 15,
+  },
+  overview: {
+    color: '#cbd5f5',
+    marginTop: 10,
+    lineHeight: 22,
+  },
   button: {
     marginTop: 20,
     backgroundColor: '#38bdf8',
@@ -37,5 +66,8 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
   },
-  buttonText: { fontWeight: '700', color: '#020617' },
+  buttonText: {
+    fontWeight: '700',
+    color: '#020617',
+  },
 });

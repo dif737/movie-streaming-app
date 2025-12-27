@@ -15,42 +15,33 @@ export default function HomeScreen({ navigation }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    loadMovies();
+    fetchMyList()
+      .then((data) =>
+        setMovies(data.filter(m => m.poster_path && m.title))
+      )
+      .finally(() => setLoading(false));
   }, []);
-
-  const loadMovies = async () => {
-    try {
-      const data = await fetchMyList();
-
-      const validMovies = data.filter(
-        (item) => item.poster_path && item.title
-      );
-
-      setMovies(validMovies);
-    } catch (error) {
-      console.log('TMDB ERROR:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
       <View style={styles.center}>
         <ActivityIndicator size="large" color="#e50914" />
-        <Text style={styles.loadingText}>Loading movies...</Text>
+        <Text style={{ color: '#fff', marginTop: 10 }}>
+          Loading movies...
+        </Text>
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>🎬 Movies</Text>
+      <Text style={styles.header}> Movies</Text>
 
       <FlatList
         data={movies}
         numColumns={2}
         keyExtractor={(item) => item.id.toString()}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
         contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <MovieCard
@@ -68,7 +59,7 @@ export default function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a', // bleu nuit
+    backgroundColor: '#0b1220',
   },
   header: {
     color: '#fff',
@@ -77,17 +68,13 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   list: {
-    paddingHorizontal: 8,
-    paddingBottom: 20,
+    paddingHorizontal: 14,
+    paddingBottom: 30,
   },
   center: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0f172a',
-  },
-  loadingText: {
-    color: '#fff',
-    marginTop: 10,
+    backgroundColor: '#0b1220',
   },
 });
