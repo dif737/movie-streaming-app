@@ -35,7 +35,7 @@ export default function MovieCard({ movie, onPress }) {
         <TouchableOpacity style={styles.heart} onPress={onToggleFavorite}>
           <AntDesign
             name={favorite ? 'heart' : 'hearto'}
-            size={20}
+            size={22}
             color={favorite ? '#e50914' : '#fff'}
           />
         </TouchableOpacity>

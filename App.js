@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { View, ActivityIndicator } from 'react-native';
 import * as Font from 'expo-font';
-import { AntDesign } from '@expo/vector-icons';
-
 import AppNavigator from './src/navigation/AppNavigator';
 
 export default function App() {
