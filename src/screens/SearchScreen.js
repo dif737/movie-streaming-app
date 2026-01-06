@@ -26,9 +26,12 @@ export default function SearchScreen({ navigation }) {
 
     setLoading(true);
     try {
-      const results = await searchMovies(text);
+      const data = await searchMovies(text);
 
-      const validMovies = results.filter(
+      // TMDB search returns an object with "results"
+      const list = Array.isArray(data?.results) ? data.results : [];
+
+      const validMovies = list.filter(
         (item) => item.poster_path && item.title
       );
 
@@ -62,9 +65,7 @@ export default function SearchScreen({ navigation }) {
         renderItem={({ item }) => (
           <MovieCard
             movie={item}
-            onPress={() =>
-              navigation.navigate('Details', { movie: item })
-            }
+            onPress={() => navigation.navigate('Details', { movie: item })}
           />
         )}
         ListEmptyComponent={
